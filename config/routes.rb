@@ -1,4 +1,6 @@
 Cloutbout::Application.routes.draw do
+  resources :team
+
   root :to => 'home#index'
 
   match '/auth/:provider/callback' => 'sessions#create'
@@ -6,4 +8,6 @@ Cloutbout::Application.routes.draw do
 
   match '/signout' => 'sessions#destroy', :as => :signout
   match '/signin' => 'sessions#new', :as => :signin
+
+  match ':controller(/:action(/:id))'
 end

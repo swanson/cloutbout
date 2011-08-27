@@ -46,9 +46,6 @@ ActiveRecord::Schema.define(:version => 20110827145634) do
     t.string   "image_url"
     t.float    "previous_score"
     t.float    "current_score"
-    t.integer  "leauge_id"
-    t.integer  "current_roster_id"
-    t.integer  "future_roster_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

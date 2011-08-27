@@ -16,5 +16,4 @@ class User < ActiveRecord::Base
       raise Exception, "cannot create user record"
     end
   end
-
 end

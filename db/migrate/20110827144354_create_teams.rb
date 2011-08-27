@@ -6,9 +6,6 @@ class CreateTeams < ActiveRecord::Migration
       t.string :image_url
       t.float :previous_score
       t.float :current_score
-      t.integer :leauge_id
-      t.integer :current_roster_id
-      t.integer :future_roster_id
 
       t.timestamps
     end
