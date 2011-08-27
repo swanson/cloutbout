@@ -23,6 +23,6 @@ class UserController < ApplicationController
       cursor = response.next_cursor
     end
     following.sort{|a,b| a.followers_count <=> b.followers_count}.reverse
-    render :json => following
+    render :json => following.first(10)
   end
 end
