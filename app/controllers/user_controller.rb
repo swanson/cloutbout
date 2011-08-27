@@ -7,18 +7,22 @@ class UserController < ApplicationController
   end
 
   def get_following
-    def prepare_access_token(oauth_token, oauth_token_secret)
-      consumer = OAuth::Consumer.new(ENV['CLOUDBOUT_KEY'], ENV['CLOUDBOUT_SECRET'],
-                                     { :site => "http://api.twitter.com"})
-      
-      token_hash = { :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret }
-      access_token = OAuth::AccessToken.from_hash(consumer, token_hash )
-      return access_token
+    Twitter.configure do |config|
+      config.consumer_key = ENV['CLOUDBOUT_KEY']
+      config.consumer_secret = ENV['CLOUDBOUT_SECRET']
+      config.oauth_token = current_user.token
+      config.oauth_token_secret = current_user.secret
     end
 
-    access_token = prepare_access_token(current_user.token, current_user.secret)
-    response = access_token.request(:get, "http://api.twitter.com/1/friends/ids.json?screen_name=#{current_user.name}")
-
-    render :json => response.body
+    client = Twitter::Client.new
+    cursor = -1
+    following = []
+    begin
+      response = client.friends :cursor => cursor
+      following += response.users
+      cursor = response.next_cursor
+    end
+    following.sort{|a,b| a.followers_count <=> b.followers_count}.reverse
+    render :json => following
   end
 end
