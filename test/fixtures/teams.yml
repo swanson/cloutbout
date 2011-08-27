@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  owner_id: 1
+  name: MyString
+  image_url: MyString
+  previous_score: 1.5
+  current_score: 1.5
+  leauge_id: 1
+
+two:
+  owner_id: 1
+  name: MyString
+  image_url: MyString
+  previous_score: 1.5
+  current_score: 1.5
+  leauge_id: 1
