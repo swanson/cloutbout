@@ -1,5 +1,9 @@
 Cloutbout::Application.routes.draw do
+  get "user/get_team"
+
+  match '/team/:id/roster' => 'team#roster'
   resources :team
+
 
   root :to => 'home#index'
 

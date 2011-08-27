@@ -1,5 +1,7 @@
 class TeamController < ApplicationController
-  before_filter :get_team, :only => [:show, :update, :destroy, :add_player]
+  before_filter :get_team, :only => [:show, :update, :destroy, 
+                                     :add_player, :roster
+                                    ]
 
   def new
     @team = Team.new
@@ -43,6 +45,11 @@ class TeamController < ApplicationController
     @team.save
 
     render :json => @team
+  end
+
+  def roster
+    @roster = Roster.where(:team_id => @team).first
+    render :json => @roster.players
   end
 
   private
