@@ -4,7 +4,7 @@ class PlayersController < ApplicationController
   end
 
   def set_score
-      player = Player.find(params['id'])
+      player = Player.where(:name => params['name']).first
       player.current_score = params['score'].to_f
       player.save
   end
