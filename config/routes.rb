@@ -1,4 +1,6 @@
 Cloutbout::Application.routes.draw do
+  get "league/:id/show_teams" => 'league#show_teams'
+
   get "players/all"
 
   get "players/set_score"

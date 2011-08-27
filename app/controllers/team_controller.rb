@@ -1,7 +1,6 @@
 class TeamController < ApplicationController
   before_filter :get_team, :only => [:show, :update, :destroy, 
-                                     :add_player, :roster
-                                    ]
+                                     :add_player, :roster]
 
   def new
     @team = Team.new
