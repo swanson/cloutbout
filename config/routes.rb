@@ -1,5 +1,6 @@
 Cloutbout::Application.routes.draw do
   get "user/get_team"
+  get "user/get_following"
 
   match '/team/:id/roster' => 'team#roster'
   resources :team

@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(:version => 20110827145634) do
     t.string   "uid"
     t.string   "name"
     t.string   "email"
+    t.string   "token"
+    t.string   "secret"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
