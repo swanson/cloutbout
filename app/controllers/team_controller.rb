@@ -41,8 +41,10 @@ class TeamController < ApplicationController
       @team.build_future_roster
     end
 
-    @team.future_roster.players << new_player
-    @team.save
+    if @team.count < 5
+      @team.future_roster.players << new_player
+      @team.save
+    end
 
     render :json => @team
   end

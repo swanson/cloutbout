@@ -1,4 +1,8 @@
 Cloutbout::Application.routes.draw do
+  get "players/all"
+
+  get "players/set_score"
+
   get "user/get_team"
   get "user/get_following"
 
