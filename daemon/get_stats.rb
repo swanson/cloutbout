@@ -3,6 +3,7 @@
 require "rubygems"
 require "twitter"
 require "time"
+require "hashie"
 
 Twitter.configure do |config|
   config.consumer_key = ENV["CONSUMER_KEY"]
@@ -95,7 +96,7 @@ def get_stats(user)
     num_favs = user_info.favourites_count
     num_listed = user_info.listed_count
 
-    return {
+    return Hashie::Mash.new({
         :rt => num_rt,
         :url => num_url,
         :hashtag => num_hashtag,
@@ -105,7 +106,18 @@ def get_stats(user)
         :friends => num_friends,
         :favs => num_favs,
         :listed => num_listed,
-    }
+    })
 end
 
+def get_score(stats)
+    sum = 0
+
+    sum += stats.tweets
+    sum += stats.mentions * 0.1
+    sum += stats.hashtag * 0.1
+    sum += stats.url * 0.25
+    sum += stats.rt * 1.5
+
+    return sum
+end
 
