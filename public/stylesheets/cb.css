@@ -143,20 +143,33 @@ html, body {
 .playerName, .teamName {
 	display:inline-block;
 	font-weight:bold;
-	font-size:24px;
+	font-size:20px;
 	position:absolute;
-	top:10px;
+	top:4px;
+}
+
+.playerName {
 	left:60px;
+}
+
+.teamName {
+	left:10px;
 }
 
 .playerScore, .teamScore {
 	display:inline-block;
 	font-weight:bold;
-	font-size:16px;
+	font-size:14px;
 	position:absolute;
-	top:15px;
-	left:100%;
-	margin-left:-125px;
+	top:28px;
+}
+
+.playerScore {
+	left:80px;
+}
+
+.teamScore {
+	left:10px;
 }
 
 .diveBtn {
