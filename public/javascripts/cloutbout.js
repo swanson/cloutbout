@@ -284,7 +284,7 @@ function createPlayerPickerView(defaultPlayer, teamID, slotNum, onSubmit) {
 function createLeagueTabView(viewStack) {
 	var view = createDivEl("view");
 	var loadingEl = createDivEl("loading", null, "Loading...");
-	var titleEl = createDivEl("viewTitle", null, "My League");	
+	var titleEl = createDivEl("viewTitle", null, "DinoSorbet League");	
 	var teamTiles = new Array();
 	var playerTiles = new Array();
 	
