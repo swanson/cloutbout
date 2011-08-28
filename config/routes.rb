@@ -1,4 +1,10 @@
 Cloutbout::Application.routes.draw do
+  get "leaderboard/global"
+
+  get "leaderboard/league"
+
+  get "leaderboard/players"
+
   get "league/:id/show_teams" => 'league#show_teams'
 
   get "players/all"
