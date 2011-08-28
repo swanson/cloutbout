@@ -13,7 +13,7 @@ class LeaderboardController < ApplicationController
   end
 
   def players
-    @players = Player.find(:all, :limit => 10, :order => "current_score desc")
+    @players = Player.find(:all, :order => "current_score desc")
 
     render :json => @players
   end
