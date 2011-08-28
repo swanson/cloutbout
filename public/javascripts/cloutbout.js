@@ -456,6 +456,7 @@ function createUserTile(user, btn, onClick) {
 	
 	var nameEl = createDivEl("playerName", null, "@" + user.screen_name);
 	tileEl.appendChild(nameEl);
+    nameEl.style.top = "12px";
 	
 	if(btn) {
 		var btnEl = createImgEl("diveBtn", null, "./img/next.png");	
@@ -484,7 +485,9 @@ function createPlayerTile(player, score, btn, onClick) {
 	if(score) {
 		var scoreEl = createDivEl("playerScore", null, "Score: " + player.current_score);
 		tileEl.appendChild(scoreEl);
-	}
+	} else {
+        nameEl.style.top = "12px";
+    }
 	
 	if(btn) {
 		var btnEl = createImgEl("diveBtn", null, "./img/next.png");	
@@ -577,9 +580,9 @@ function createImgEl(className, id, src) {
 function createTextInputEl() {
 	var input = document.createElement("input");
 	input.setAttribute("type", "text"); 
-	input.className = "shelfTrayTextInput";
 	input.style.width = "80%";
-	input.style.marginLeft = "10%";
+	input.style.marginLeft = "7%";
+	input.style.fontSize = "18px";
 	return input;
 }
 
