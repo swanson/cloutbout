@@ -40,6 +40,10 @@ function onLoad() {
 
                 break;
 			case infoTab:
+                if(infoViewStack.getViews().length == 0) {
+					infoViewStack.pushView(createInfoTabView(infoViewStack));
+				}
+
 				break;
 		}
 	});
@@ -300,6 +304,28 @@ function createHomeTabView(viewStack) {
 	var view = createDivEl("view");
 	
 	view.innerHTML = "<a href='/signin'>Sign In With Twitter</a>";
+	
+	return view;
+}
+
+function createInfoTabView(viewStack) {
+	var view = createDivEl("view");
+	
+	var whatIsEl = createDivEl("viewTitle", null, "What Is CloutBout?");
+	var scoreEl = createDivEl("viewTitle", null, "How Do Scores Work?");
+	
+	var aboutEl = createDivEl("txtBlock", null, "CloutBout takes the fun and competition of fantasy football to the Twitter gridiron. <br/><br/>Pick your team of five Twitter all-stars and face off against your friend&#39;s squad.<br/><br/>Matches end weekly, so get started today! Just sign in with Twitter --- no extra registration required!");
+	var rulesEl = createDivEl("txtBlock", null, "A player accumulates points from: <br /><br />" +
+			"Tweets: 1 point <br />" +
+			"Getting Retweeted: 1.5 points <br />" +
+			"Tweeting links: 0.25 point<br />" +
+			"Mentioning: 0.1 point<br />" +
+			"#Hash tagging: 0.1 point");
+
+	view.appendChild(whatIsEl);
+	view.appendChild(aboutEl);
+	view.appendChild(scoreEl);
+	view.appendChild(rulesEl);
 	
 	return view;
 }
