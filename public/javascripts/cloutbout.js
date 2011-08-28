@@ -7,7 +7,7 @@ function getContentWidth() {
 function initApp() {
 	var tabController = new TabController();
 	
-	var homeTab = createNavTab("Home", "./img/home.png");
+	var homeTab = createNavTab("Home", "./img/star_full.png");
 	var homeViewStack = createViewStack();
 	
 	var teamTab = createNavTab("Team", "./img/users.png");
@@ -48,12 +48,13 @@ function initApp() {
 		}
 	});
 		
-	tabController.addTab(homeTab, homeViewStack);
-	tabController.addTab(teamTab, teamViewStack);
+    tabController.addTab(teamTab, teamViewStack);
 	tabController.addTab(leagueTab, leagueViewStack);
+	tabController.addTab(homeTab, homeViewStack);
 	tabController.addTab(infoTab, infoViewStack);
 	
-	tabController.selectTab(homeTab);
+	tabController.selectTab(teamTab);
+
 }
 
 function initLogin() {
@@ -334,6 +335,39 @@ function createHomeTabView(viewStack) {
 	var view = createDivEl("view");
 	
 	view.innerHTML = "<a href='/signin'>Sign In With Twitter</a>";
+	
+	return view;
+}
+
+function createHomeTabView(viewStack) {
+	var view = createDivEl("view");
+	var playerTiles = new Array();
+	var titleEl = createDivEl("viewTitle", null, "Top Scoring This Week");
+	var loadingEl = createDivEl("loading", null, "Loading...");
+	
+	var refresh = function() {
+		view.innerHTML = "";
+		view.appendChild(loadingEl);
+		
+		callGetMethod("/leaderboard/players", function(players) {
+			rel(loadingEl);
+			view.appendChild(titleEl);
+			
+			var playerTile = null;
+			
+			for(var i in players) {
+				playerTile = createPlayerTile(players[i].player, true, false, function() {});
+				view.appendChild(playerTile);
+				playerTiles.push(playerTile);
+			}
+			
+			if(playerTile) {
+				playerTile.style.borderBottom = "solid 1px #777";
+			}
+		});
+	};
+	
+	refresh();
 	
 	return view;
 }

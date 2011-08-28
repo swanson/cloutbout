@@ -84,7 +84,8 @@ html, body {
 	padding:10px;
 	width:80%;
 	border-radius:6px;
-	margin-left:10%;
+	margin-left:auto;
+	margin-right:auto;
 	border-top:solid 1px white;
 }
 
@@ -128,14 +129,14 @@ html, body {
 
 .playerTile, .teamTile {
 	width:100%;
-	height:64px;
+	height:48px;
 	position:relative;
 }
 
 .playerImg, .teamImg {
 	display:inline-block;
-	width:64px;
-	height:64px;
+	width:48px;
+	height:48px;
 	border-right:solid 1px #777;
 }
 
@@ -144,22 +145,23 @@ html, body {
 	font-weight:bold;
 	font-size:24px;
 	position:absolute;
-	top:4px;
-	left:70px;
+	top:10px;
+	left:60px;
 }
 
 .playerScore, .teamScore {
 	display:inline-block;
 	font-weight:bold;
-	font-size:18px;
+	font-size:16px;
 	position:absolute;
-	top:40px;
-	left:70px;
+	top:15px;
+	left:100%;
+	margin-left:-105px;
 }
 
 .diveBtn {
 	position:absolute;
-	top:20px;
+	top:10px;
 	left:100%;
 	margin-left:-36px;
 }
