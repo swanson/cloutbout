@@ -25,4 +25,10 @@ class UserController < ApplicationController
     people = following.sort{|a,b| a.followers_count <=> b.followers_count}.reverse
     render :json => people.first(10)
   end
+
+  def logged_in
+    status = false
+    status = true if user_signed_in?
+    render :json => { :logged_in => status }
+  end
 end

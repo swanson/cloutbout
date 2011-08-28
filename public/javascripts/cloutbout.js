@@ -199,13 +199,13 @@ function createPlayerPickerView(defaultPlayer, teamID, slotNum, onSubmit) {
 	
 	var tiles = new Array();
 	
-	handleFieldEl.value = "@" + defaultPlayer.handle;
+	handleFieldEl.value = defaultPlayer.name;
 	
 	view.appendChild(loadingEl);
 	
 	var createTileListener = function(user) {
 		return function(event) {
-			handleFieldEl.value = "@" + user.handle;
+			handleFieldEl.value = "@" + user.screen_name;
 		};
 	};
 	
@@ -506,43 +506,39 @@ function callGetMethod(methodURL, callback) {
 	}
 }
 
-//function callPostMethod(methodURL, inputData, callback) {
-//	// Create & setup the request object.
-//	var req = new XMLHttpRequest();
-//	req.open("POST", methodURL, true);
-//	req.setRequestHeader("Cache-Control", "no-cache");
-//	req.setRequestHeader("Pragma", "no-cache");
-//	req.setRequestHeader("Content-type", "application/json");
-//	
-//	if(!callback) {
-//		var callback = function() {};
-//	}
-//	
-//	// Setup the callback.
-//	req.onreadystatechange = function() {
-//		if(req.readyState == 4) {
-//			if(req.status == 200) {
-//				if(req.responseText != null) {
-//					callback(JSON.parse(req.responseText));
-//				} else {
-//					callback(new ComError());
-//				}
-//			} else {
-//				callback(new ComError());
-//			}
-//		}
-//	};
-//	
-//	try {
-//		// Send the request.
-//		req.send(JSON.stringify(inputData));
-//	} catch (err) {
-//		callback(new ComError());
-//	}
-//}
-
 function callPostMethod(methodURL, inputData, callback) {
-	setTimeout(function() {callback(new function() {});}, 600);
+	// Create & setup the request object.
+	var req = new XMLHttpRequest();
+	req.open("POST", methodURL, true);
+	req.setRequestHeader("Cache-Control", "no-cache");
+	req.setRequestHeader("Pragma", "no-cache");
+	req.setRequestHeader("Content-type", "application/json");
+	
+	if(!callback) {
+		var callback = function() {};
+	}
+	
+	// Setup the callback.
+	req.onreadystatechange = function() {
+		if(req.readyState == 4) {
+			if(req.status == 200) {
+				if(req.responseText != null) {
+					callback(JSON.parse(req.responseText));
+				} else {
+					callback(new ComError());
+				}
+			} else {
+				callback(new ComError());
+			}
+		}
+	};
+	
+	try {
+		// Send the request.
+		req.send(JSON.stringify(inputData));
+	} catch (err) {
+		callback(new ComError());
+	}
 }
 
 function ComError() {

@@ -13,8 +13,10 @@ Cloutbout::Application.routes.draw do
 
   get "user/get_team"
   get "user/get_following"
+  get "user/logged_in"
 
   match '/team/:id/roster' => 'team#roster'
+  match '/team/:id/add_player' => 'team#add_player'
   resources :team
 
 

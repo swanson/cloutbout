@@ -33,14 +33,14 @@ class TeamController < ApplicationController
   end
 
   def add_player
-    new_player = Player.where(:name => params[:name]).first ||
-        Player.create_new(params[:name])
+    new_player = Player.where(:name => params[:_json]).first ||
+        Player.create_new(params[:_json])
     
     if @team.future_roster.nil?
       @team.build_future_roster
     end
 
-    if @team.count < 5
+    if @team.future_roster.players.length < 5
       @team.future_roster.players << new_player
       @team.save
     end
