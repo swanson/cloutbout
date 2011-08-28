@@ -49,11 +49,13 @@ end
 def rt_count(tweets)
     sum = 0
     for tweet in tweets
-        if tweet.retweet_count == "100+"
+        num = tweet.retweet_count
+        if num == "100+"
             sum += 150
         else
-            sum += tweet.retweet_count
+            sum += num
         end
+        #puts "name: #{tweet.user.screen_name} num: #{num} id: #{tweet.id_str}" 
     end
     return sum
 end
@@ -82,8 +84,8 @@ def mentions_count(tweets)
     return sum
 end
 
-def get_stats(user)
-    tweets_this_week = get_tweets_for_week(user, Time.now() - 60*60*24*7)
+def get_stats(user, start)
+    tweets_this_week = get_tweets_for_week(user, start)
     user_info = Twitter.user(user)
     
     num_rt = rt_count(tweets_this_week)
@@ -110,14 +112,19 @@ def get_stats(user)
 end
 
 def get_score(stats)
-    sum = 0
+    tweet = stats.tweets
+    mention = stats.mentions * 0.1
+    hashtag = stats.hashtag * 0.1
+    url = stats.url * 0.25
+    rt = stats.rt * 1.5
 
-    sum += stats.tweets
-    sum += stats.mentions * 0.1
-    sum += stats.hashtag * 0.1
-    sum += stats.url * 0.25
-    sum += stats.rt * 1.5
+    #puts "tweet: #{tweet} mention: #{mention} hashtag: #{hashtag} url: #{url} rt #{rt}"
 
-    return sum
+    return tweet + mention + hashtag + url + rt
+end
+
+def get_score_starting_at(user, start)
+    stats = get_stats(user, start)
+    return get_score(stats)
 end
 
