@@ -4,7 +4,7 @@ function getContentWidth() {
 	return contentArea.clientWidth;
 }
 
-function onLoad() {
+function initApp() {
 	var tabController = new TabController();
 	
 	var homeTab = createNavTab("Home", "./img/home.png");
@@ -54,6 +54,36 @@ function onLoad() {
 	tabController.addTab(infoTab, infoViewStack);
 	
 	tabController.selectTab(homeTab);
+}
+
+function initLogin() {
+	var body = document.getElementsByTagName("body")[0];
+	body.style.textAlign = "center";
+	
+	var logoEl = createImgEl("logo", null, "./img/splash.png");
+	var titleEl = createDivEl("viewTitle", null, "Fantasy Football for Twitter");
+	var txtEl = createDivEl("txtBlock", null, "To get started, just Sign In with your Twitter ID!");
+	var loginBtnEl = createImgEl("loginBtn", null, "https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-d.png");
+	
+    loginBtnEl.addEventListener("click", function() {
+		location = "/signin";
+	}, false);
+
+
+	body.appendChild(logoEl);
+	body.appendChild(titleEl);
+	body.appendChild(txtEl);
+	body.appendChild(loginBtnEl);	
+}
+
+function onLoad() {
+	callGetMethod("/user/logged_in", function(res) {
+		if(res.logged_in) {
+			initApp();
+		} else {
+			initLogin();
+		}
+	});
 }
 
 // Controller

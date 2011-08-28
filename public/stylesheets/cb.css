@@ -88,6 +88,12 @@ html, body {
 	border-top:solid 1px white;
 }
 
+.logo {
+	max-width:80%;
+	max-height:50%;
+	margin:20px;	
+}
+
 .view {
 	width:100%;
 	display:inline-block;
