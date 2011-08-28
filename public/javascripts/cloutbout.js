@@ -217,7 +217,7 @@ function createPlayerPickerView(defaultPlayer, teamID, slotNum, onSubmit) {
 		});
 	}, false);
 	
-	callGetMethod("/users/get_following", function(users) {
+	callGetMethod("/user/get_following", function(users) {
 		rel(loadingEl);
 		
 		view.appendChild(titleEl);
@@ -307,10 +307,10 @@ function createTeamTabView(viewStack) {
 function createUserTile(user, btn, onClick) {
 	var tileEl = createDivEl("playerTile row");
 	
-	var imgEl = createImgEl("playerImg", null, user.image_url);
+	var imgEl = createImgEl("playerImg", null, user.profile_image_url);
 	tileEl.appendChild(imgEl);
 	
-	var nameEl = createDivEl("playerName", null, "@" + user.handle);
+	var nameEl = createDivEl("playerName", null, "@" + user.screen_name);
 	tileEl.appendChild(nameEl);
 	
 	if(btn) {
