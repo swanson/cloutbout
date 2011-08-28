@@ -7,6 +7,8 @@ class PlayersController < ApplicationController
     player = Player.where(:name => params['name']).first
     player.current_score = params['score'].to_f
     player.save
+
+    render :text => ""
   end
 
 end
