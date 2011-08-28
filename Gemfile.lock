@@ -138,7 +138,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  omniauth
+  omniauth (= 0.2.6)
   rails (= 3.0.5)
   sqlite3
-  twitter
+  twitter (= 1.6.0)
