@@ -5,6 +5,7 @@
 ## Built for the SDC Chicago 2011 hackathon in under 36 hours.
 
 Authors:
-* Matt Swanson
-* Jevin Sweval
-* Isaiah Simpson
+
+* Matt Swanson  
+* Jevin Sweval  
+* Isaiah Simpson  
