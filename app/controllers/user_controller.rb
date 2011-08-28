@@ -2,8 +2,10 @@ class UserController < ApplicationController
   def get_team
     if user_signed_in?
       @team = Team.where(:owner_id => current_user).first
+      render :json => @team
+    else
+      render :text => "Error getting team"
     end
-    render :json => @team
   end
 
   def get_following

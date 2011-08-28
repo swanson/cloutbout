@@ -13,8 +13,8 @@ function onLoad() {
 	var teamTab = createNavTab("Team", "./img/users.png");
 	var teamViewStack = createViewStack();
 	
-	var leaguesTab = createNavTab("Leagues", "./img/wired.png");
-	var leaguesViewStack = createViewStack();
+	var leagueTab = createNavTab("My League", "./img/wired.png");
+	var leagueViewStack = createViewStack();
 	
 	var infoTab = createNavTab("Information", "./img/info.png");
 	var infoViewStack = createViewStack();
@@ -33,8 +33,12 @@ function onLoad() {
 				}
 				
 				break;
-			case leaguesTab:
-				break;
+			case leagueTab:
+                if(leagueViewStack.getViews().length == 0) {
+					leagueViewStack.pushView(createLeagueTabView(leagueViewStack));
+				}
+
+                break;
 			case infoTab:
 				break;
 		}
@@ -42,7 +46,7 @@ function onLoad() {
 		
 	tabController.addTab(homeTab, homeViewStack);
 	tabController.addTab(teamTab, teamViewStack);
-	tabController.addTab(leaguesTab, leaguesViewStack);
+	tabController.addTab(leagueTab, leagueViewStack);
 	tabController.addTab(infoTab, infoViewStack);
 	
 	tabController.selectTab(homeTab);
@@ -242,6 +246,56 @@ function createPlayerPickerView(defaultPlayer, teamID, slotNum, onSubmit) {
 	return view;
 }
 
+function createLeagueTabView(viewStack) {
+	var view = createDivEl("view");
+	var loadingEl = createDivEl("loading", null, "Loading...");
+	var titleEl = createDivEl("viewTitle", null, "My League");	
+	var teamTiles = new Array();
+	var playerTiles = new Array();
+	
+	var refresh = function() {
+		view.innerHTML = "";
+		view.appendChild(loadingEl);
+		
+		callGetMethod("/league/1/show_teams", function(teams) {
+			rel(loadingEl);
+			view.appendChild(titleEl);
+			
+			var tile = null;
+			var players = null;
+			
+			for(var i in teams) {
+				tile = createTeamTile(teams[i].team, true, false);
+				teamTiles.push(tile);
+				view.appendChild(tile);
+				tile.style.background = "#777";
+				tile.style.color = "white";
+				
+				//teams[i].name
+				//teams[i].current_score;
+				
+				players = teams[i].team.current_roster.players;
+				
+				for(var j in players) {
+					tile = createPlayerTile(players[j], true, false, function() {});
+					playerTiles.push(tile);
+					view.appendChild(tile);
+				}
+			}
+			
+			if(tile) {
+				tile.style.borderBottom = "solid 1px #777";
+			}
+		});
+	};
+	
+	view.appendChild(loadingEl);
+	
+	refresh();
+	
+	return view;
+}
+
 function createHomeTabView(viewStack) {
 	var view = createDivEl("view");
 	
@@ -338,7 +392,7 @@ function createPlayerTile(player, score, btn, onClick) {
 	tileEl.appendChild(nameEl);
 	
 	if(score) {
-		var scoreEl = createDivEl("playerScore", null, player.current_score);
+		var scoreEl = createDivEl("playerScore", null, "Score: " + player.current_score);
 		tileEl.appendChild(scoreEl);
 	}
 	
@@ -355,13 +409,13 @@ function createTeamTile(team, score, btn) {
 	var tileEl = createDivEl("teamTile row");
 	
 	var imgEl = createImgEl("teamImg", null, team.image_url);
-	tileEl.appendChild(imgEl);
+	//tileEl.appendChild(imgEl);
 	
-	var nameEl = creatDivEl("teamName", null, team.name);
+	var nameEl = createDivEl("teamName", null, team.name);
 	tileEl.appendChild(nameEl);
 	
 	if(score) {
-		var scoreEl = createDivEl("teamScore", null, team.current_score);
+		var scoreEl = createDivEl("teamScore", null, "Score: " + team.current_score);
 		tileEl.appendChild(scoreEl);
 	}
 	
@@ -513,6 +567,18 @@ function callPostMethod(methodURL, inputData, callback) {
 	req.setRequestHeader("Cache-Control", "no-cache");
 	req.setRequestHeader("Pragma", "no-cache");
 	req.setRequestHeader("Content-type", "application/json");
+    
+    var tokens = document.getElementsByTagName("meta");
+	var token = null;
+	
+	for(var i in tokens) {
+		if(tokens[i].name == "csrf-token") {
+			token = tokens[i].content;
+		}
+	}
+	
+	req.setRequestHeader("X-CSRF-Token", token);
+
 	
 	if(!callback) {
 		var callback = function() {};

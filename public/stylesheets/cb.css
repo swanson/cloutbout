@@ -130,6 +130,15 @@ html, body {
 	left:70px;
 }
 
+.playerScore, .teamScore {
+	display:inline-block;
+	font-weight:bold;
+	font-size:18px;
+	position:absolute;
+	top:40px;
+	left:70px;
+}
+
 .diveBtn {
 	position:absolute;
 	top:20px;
